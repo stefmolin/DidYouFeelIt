@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create and execute network task in the background
         EarthquakeAsyncTask task = new EarthquakeAsyncTask();
-        task.execute();
+        task.execute(USGS_REQUEST_URL);
     }
 
     /**
@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Handle network requests in the background and update the UI when done
      */
-    private class EarthquakeAsyncTask extends AsyncTask<URL, Void, Event> {
+    private class EarthquakeAsyncTask extends AsyncTask<String, Void, Event> {
         @Override
-        protected Event doInBackground(URL... urls) {
+        protected Event doInBackground(String... urls) {
             // Perform the HTTP request for earthquake data and process the response.
-            Event earthquake = Utils.fetchEarthquakeData(USGS_REQUEST_URL);
+            Event earthquake = Utils.fetchEarthquakeData(urls[0]);
             return earthquake;
         }
 
